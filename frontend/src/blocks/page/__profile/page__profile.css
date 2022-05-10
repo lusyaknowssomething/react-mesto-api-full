@@ -1,0 +1,9 @@
+.page__profile {
+  margin: 40px auto 50px;
+}
+
+@media (max-width: 500px) {
+  .page__profile {
+    margin: 42px auto 47px;
+  }
+}

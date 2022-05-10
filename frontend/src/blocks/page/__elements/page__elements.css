@@ -1,0 +1,9 @@
+.page__elements {
+  margin: 0 auto 66px;
+}
+
+@media (max-width: 500px) {
+  .page__elements {
+    margin-bottom: 37px;
+  }
+}

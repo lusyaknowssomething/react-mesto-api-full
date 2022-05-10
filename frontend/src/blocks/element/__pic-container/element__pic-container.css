@@ -1,0 +1,10 @@
+.element__pic-container {
+  grid-area: picture;
+  height: 100%;
+  transition: transform .5s;
+  cursor: pointer;
+}
+
+.element__pic-container:hover {
+  transform: scale(1.03);
+}

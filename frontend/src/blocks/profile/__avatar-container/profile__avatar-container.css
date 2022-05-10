@@ -1,0 +1,23 @@
+.profile__avatar-container {
+  position: relative;
+}
+
+
+.profile__avatar-container::after {
+  content: '';
+  background: url(../../../images/EditAvatarButton.svg) rgba(0, 0, 0, 0.5) no-repeat center center;
+  width: 120px;
+  height: 120px;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: transform .8s, opacity .5s;
+}
+
+.profile__avatar-container:hover::after {
+  opacity: 1;
+  transform: scale(1.1);
+}
+

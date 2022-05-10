@@ -1,0 +1,29 @@
+.profile__avatar {
+  width: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  height: 120px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity .5s;
+}
+
+@media (max-width: 720px) and (min-width: 499px) {
+  .profile__avatar {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    max-width: 336px;
+  }
+}
+
+@media (max-width: 500px) {
+  .profile__avatar {
+    max-width: 169px;
+  }
+}
+
+@media (max-width: 320px) {
+  .profile__avatar {
+    max-width: 120px;
+  }
+}

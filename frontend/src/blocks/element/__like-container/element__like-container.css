@@ -1,0 +1,5 @@
+.element__like-container {
+  grid-area: like;
+  justify-self: end;
+  grid-column: auto;
+}

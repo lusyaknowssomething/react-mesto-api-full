@@ -1,0 +1,13 @@
+.element {
+  display: grid;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  grid-template-areas:
+  "picture picture"
+  "title like";
+  align-items: center;
+  grid-template-columns: minmax(auto, 240px) 1fr;
+  grid-template-rows: minmax(auto, 282px) 1fr;
+  position: relative;
+}
