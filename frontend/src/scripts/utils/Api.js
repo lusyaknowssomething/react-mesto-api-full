@@ -79,8 +79,12 @@ class Api {
   }
 }
 
-const api = new Api({
-  baseUrl: 'http://localhost:3000'
+const api = new Api( {
+  url: 'http://localhost:3000',
+  headers: {
+    authorization: '1ce755b3-dc11-43ff-ae56-cdb55c7d6042',
+    "content-type": "application/json"
+  }
 });
 
 export default api;
