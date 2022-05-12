@@ -11,6 +11,7 @@ const { Auth } = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
 const { urlValidation } = require('./middlewares/urlValidation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { corsValidation } = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -30,6 +31,10 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   .catch((error) => console.log(error));
 
 app.use(requestLogger);
+
+app.use((req, res, next) => {
+  corsValidation(req, res, next);
+});
 
 app.post('/signin', express.json(), celebrate({
   body: Joi.object().keys({
