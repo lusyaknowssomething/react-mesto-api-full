@@ -37,7 +37,6 @@ app.use((req, res, next) => {
   // проверяем, что источник запроса есть среди разрешённых
   if (allowedCors.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Headers', true);
   }
   const { method } = req;
 
