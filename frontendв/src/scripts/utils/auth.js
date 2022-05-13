@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.lusyaknowssomething.nomoredomains.xyz/api';
+export const BASE_URL = 'http://api.lusyaknowssomething.nomoredomains.xyz';
 
 const request = ({url, method = 'POST', token, body}) => {
   const config = {
