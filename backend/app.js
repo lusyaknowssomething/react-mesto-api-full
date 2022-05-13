@@ -34,6 +34,7 @@ app.use(requestLogger);
 
 app.use((req, res, next) => {
   corsValidation(req, res, next);
+  console.log('success');
 });
 
 app.post('/signin', express.json(), celebrate({
