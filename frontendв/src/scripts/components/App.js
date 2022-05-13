@@ -54,7 +54,7 @@ const App = () => {
   const [email, setEmail] = React.useState(null);
 
   function tokenCheck() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('jwt');
     console.log(token);
     if (!token) return;
 
@@ -195,7 +195,7 @@ const App = () => {
   function handleLogin(token, email) {
     if (!token) return;
     setEmail(email)
-    localStorage.setItem("token", token);
+    localStorage.setItem("jwt", token);
     setLoggining((old) => ({ ...old, loggedIn: true }));
     history.push("/cards");
   }
