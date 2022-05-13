@@ -81,8 +81,8 @@ class Api {
 
 const api = new Api( {
   url: 'http://api.lusyaknowssomething.nomoredomains.xyz',
+  credentials: 'include',
   headers: {
-    credentials: 'include',
     "content-type": "application/json"
   }
 });
