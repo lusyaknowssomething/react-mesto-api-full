@@ -32,11 +32,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(requestLogger);
 
-app.use((req, res, next) => {
-  console.log('success');
-  corsValidation(req, res, next);
-});
-
 app.post('/signin', express.json(), celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
@@ -59,6 +54,11 @@ app.use('/', Auth, cardsRoutes);
 
 app.use('*', Auth, () => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
+});
+
+app.use((req, res, next) => {
+  console.log('success');
+  corsValidation(req, res, next);
 });
 
 app.use(errorLogger); // подключаем логгер ошибок
