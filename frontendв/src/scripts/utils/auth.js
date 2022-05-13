@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'http://api.lusyaknowssomething.nomoredomains.xyz/api';
 
 const request = ({url, method = 'POST', token, body}) => {
   const config = {
