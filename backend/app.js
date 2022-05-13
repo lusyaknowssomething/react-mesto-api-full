@@ -20,18 +20,6 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.disable('x-powered-by');
-
-mongoose.connect('mongodb://localhost:27017/mestodb', {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log('MongoDB has started ...'))
-  .catch((error) => console.log(error));
-
-app.use(requestLogger);
-
 app.use((req, res, next) => {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
   // проверяем, что источник запроса есть среди разрешённых
@@ -55,6 +43,17 @@ app.use((req, res, next) => {
   }
   return next();
 });
+
+mongoose.connect('mongodb://localhost:27017/mestodb', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log('MongoDB has started ...'))
+  .catch((error) => console.log(error));
+
+app.use(requestLogger);
 
 app.post('/signin', express.json(), celebrate({
   body: Joi.object().keys({
