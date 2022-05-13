@@ -33,8 +33,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(requestLogger);
 
 app.use((req, res, next) => {
-  corsValidation(req, res, next);
   console.log('success');
+  corsValidation(req, res, next);
 });
 
 app.post('/signin', express.json(), celebrate({
