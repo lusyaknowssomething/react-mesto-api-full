@@ -20,7 +20,7 @@ const app = express();
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(cors({ origin: allowedCors }));
+app.use(cors({ origin: true }));
 app.disable('x-powered-by');
 
 app.use((req, res, next) => {

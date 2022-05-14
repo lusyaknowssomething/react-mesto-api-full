@@ -16,7 +16,8 @@ class Api {
   getUserData() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include',
     }).then(this._errorHandler)
   }
 
@@ -82,7 +83,7 @@ class Api {
 const api = new Api( {
   url: 'https://api.lusyaknowssomething.nomoredomains.xyz',
   headers: {
-    authorization: '1ce755b3-dc11-43ff-ae56-cdb55c7d6042',
+    //authorization: '1ce755b3-dc11-43ff-ae56-cdb55c7d6042',
     "content-type": "application/json"
   }
 });
