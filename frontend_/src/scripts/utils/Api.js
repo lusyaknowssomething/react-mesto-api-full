@@ -15,7 +15,6 @@ class Api {
   //получить данные пользователя (GET)
   getUserData() {
     return fetch(`${this._url}/users/me`, {
-      credentials: 'include',
       method: 'GET',
       headers: this._headers
     }).then(this._errorHandler)
@@ -82,9 +81,8 @@ class Api {
 
 const api = new Api( {
   url: 'https://api.lusyaknowssomething.nomoredomains.xyz',
-  credentials: 'include',
-  authorization: `Bearer ${localStorage.getItem("jwt")}`,
   headers: {
+    authorization: '1ce755b3-dc11-43ff-ae56-cdb55c7d6042',
     "content-type": "application/json"
   }
 });

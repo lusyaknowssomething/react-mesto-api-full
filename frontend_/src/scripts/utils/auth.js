@@ -3,7 +3,6 @@ export const BASE_URL = 'https://api.lusyaknowssomething.nomoredomains.xyz';
 const request = ({url, method = 'POST', token, body}) => {
   const config = {
     method,
-    credentials: 'include',
     headers: {
       "Content-Type": "application/json",
       ...!!token && { 'Authorization': `Bearer ${token}` },

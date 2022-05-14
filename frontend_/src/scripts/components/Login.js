@@ -23,7 +23,6 @@ function Login({ handleLogin, handleInfoTooltip, setIsSuccsess }) {
     }
     auth.authorize(password, email)
     .then((data) => {
-      console.log('2,' + data.token);
       if (!data.token){
         handleInfoTooltip(true, false);
         setIsSuccsess(false)

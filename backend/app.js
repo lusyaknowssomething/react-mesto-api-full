@@ -20,8 +20,8 @@ const app = express();
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-//app.use(cors({ origin: allowedCors }));
-//app.disable('x-powered-by');
+app.use(cors({ origin: allowedCors }));
+app.disable('x-powered-by');
 
 app.use((req, res, next) => {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
@@ -56,6 +56,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(requestLogger);
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.post('/signin', express.json(), celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
@@ -89,5 +95,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+  console.log(`listening on port ${PORT} ...`);
 });
