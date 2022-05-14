@@ -15,6 +15,7 @@ class Api {
   //получить данные пользователя (GET)
   getUserData() {
     return fetch(`${this._url}/users/me`, {
+      credentials: 'include',
       method: 'GET',
       headers: this._headers
     }).then(this._errorHandler)

@@ -23,8 +23,6 @@ app.use(cors());
 app.disable('x-powered-by');
 
 const allowedCors = [
-  'https://praktikum.tk',
-  'http://praktikum.tk',
   'http://lusyaknowssomething.nomoredomains.xyz',
   'https://lusyaknowssomething.nomoredomains.xyz',
   'localhost:3000',
@@ -35,7 +33,7 @@ const allowedCors = [
   'http://api.lusyaknowssomething.nomoredomains.xyz',
   'https://api.lusyaknowssomething.nomoredomains.xyz',
 ];
-console.log('hey');
+
 app.use((req, res, next) => {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
   // проверяем, что источник запроса есть среди разрешённых
