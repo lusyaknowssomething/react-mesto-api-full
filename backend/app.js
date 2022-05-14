@@ -12,7 +12,6 @@ const { Auth } = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
 const { urlValidation } = require('./middlewares/urlValidation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { allowedCors } = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -23,8 +22,21 @@ app.use(helmet());
 app.use(cors());
 app.disable('x-powered-by');
 
+const allowedCors = [
+  'https://praktikum.tk',
+  'http://praktikum.tk',
+  'http://lusyaknowssomething.nomoredomains.xyz',
+  'https://lusyaknowssomething.nomoredomains.xyz',
+  'localhost:3000',
+  'http://localhost:3000',
+  'https://localhost:3000',
+  'http://51.250.24.77:3000',
+  'https://51.250.24.77:3000',
+  'http://api.lusyaknowssomething.nomoredomains.xyz',
+  'https://api.lusyaknowssomething.nomoredomains.xyz',
+];
+console.log('hey');
 app.use((req, res, next) => {
-  console.log('origin', allowedCors);
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
   // проверяем, что источник запроса есть среди разрешённых
   if (allowedCors.includes(origin)) {
