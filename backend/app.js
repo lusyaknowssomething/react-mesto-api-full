@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
+//  const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -17,7 +17,7 @@ const { allowedCors } = require('./middlewares/cors');
 const { PORT = 3000 } = process.env;
 const app = express();
 
-app.use(cookieParser());
+//  app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(cors({ origin: true }));
