@@ -19,7 +19,7 @@ const app = express();
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(cors({ origin: true }));
+app.use(cors({ origin: 'https://lusyaknowssomething.nomoredomains.xyz' }));
 app.disable('x-powered-by');
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
