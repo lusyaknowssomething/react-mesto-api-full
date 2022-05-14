@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const helmet = require('helmet');
+const cors = require('cors');
 const { usersRoutes } = require('./routes/users');
 const { cardsRoutes } = require('./routes/cards');
 const { createUser, login } = require('./controllers/users');
@@ -19,6 +20,7 @@ const app = express();
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
+app.use(cors());
 app.disable('x-powered-by');
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {

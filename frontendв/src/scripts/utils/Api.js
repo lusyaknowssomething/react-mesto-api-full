@@ -82,6 +82,7 @@ class Api {
 const api = new Api( {
   url: 'http://api.lusyaknowssomething.nomoredomains.xyz',
   credentials: 'include',
+  authorization: `Bearer ${localStorage.getItem("jwt")}`,
   headers: {
     "content-type": "application/json"
   }
