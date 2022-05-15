@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 //  const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const helmet = require('helmet');
-const cors = require('cors');
 const { usersRoutes } = require('./routes/users');
 const { cardsRoutes } = require('./routes/cards');
 const { createUser, login } = require('./controllers/users');
@@ -20,8 +19,27 @@ const app = express();
 //  app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(cors({ origin: true }));
 app.disable('x-powered-by');
+
+const cors = (req, res, next) => {
+  const { origin } = req.headers;
+  console.log(origin);
+  const { method } = req;
+  const requestHeaders = req.headers['access-control-request-headers'];
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+  res.header('Access-Control-Allow-Origin', origin);
+  res.header('Access-Control-Allow-Credentials', true);
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+  return next();
+};
+
+app.use((req, res, next) => {
+  cors(req, res, next);
+});
 
 app.use((req, res, next) => {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
