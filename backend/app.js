@@ -60,10 +60,6 @@ app.get('/test', () => {
 
 app.use(requestLogger);
 
-app.get('/test', () => {
-  console.log('test');
-});
-
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
@@ -106,24 +102,6 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
-
-// require('dotenv').config();
-// const express = require('express');
-// const mongoose = require('mongoose');
-// //  const cookieParser = require('cookie-parser');
-// const { celebrate, Joi, errors } = require('celebrate');
-// const helmet = require('helmet');
-// const { usersRoutes } = require('./routes/users');
-// const { cardsRoutes } = require('./routes/cards');
-// const { createUser, login } = require('./controllers/users');
-// const { Auth } = require('./middlewares/auth');
-// const NotFoundError = require('./errors/not-found-err');
-// const { urlValidation } = require('./middlewares/urlValidation');
-// const { requestLogger, errorLogger } = require('./middlewares/logger');
-// // const { allowedCors } = require('./middlewares/cors');
-
-// const { PORT = 3000 } = process.env;
-// const app = express();
 
 // //  app.use(cookieParser());
 // app.use(express.urlencoded({ extended: true }));

@@ -82,7 +82,7 @@ class Api {
 const api = new Api( {
   url: 'https://api.lusyaknowssomething.nomoredomains.xyz',
   headers: {
-    authorization: '1ce755b3-dc11-43ff-ae56-cdb55c7d6042',
+    credentials: 'include',
     "content-type": "application/json"
   }
 });
