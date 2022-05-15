@@ -11,7 +11,7 @@ const { Auth } = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
 const { urlValidation } = require('./middlewares/urlValidation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { allowedCors } = require('./middlewares/cors');
+// const { allowedCors } = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -21,25 +21,25 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.disable('x-powered-by');
 
-const cors = (req, res, next) => {
-  const { origin } = req.headers;
-  console.log(origin);
-  const { method } = req;
-  const requestHeaders = req.headers['access-control-request-headers'];
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Credentials', true);
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
-  }
-  return next();
-};
+// const cors = (req, res, next) => {
+//   const { origin } = req.headers;
+//   console.log(origin);
+//   const { method } = req;
+//   const requestHeaders = req.headers['access-control-request-headers'];
+//   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Credentials', true);
+//   if (method === 'OPTIONS') {
+//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+//     res.header('Access-Control-Allow-Headers', requestHeaders);
+//     return res.end();
+//   }
+//   return next();
+// };
 
-app.use((req, res, next) => {
-  cors(req, res, next);
-});
+// app.use((req, res, next) => {
+//   cors(req, res, next);
+// });
 
 // app.use((req, res, next) => {
 //   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
@@ -73,6 +73,10 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   .catch((error) => console.log(error));
 
 app.use(requestLogger);
+
+app.get('/test', () => {
+  console.log('test');
+});
 
 app.get('/crash-test', () => {
   setTimeout(() => {
