@@ -11,7 +11,7 @@ const { Auth } = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
 const { urlValidation } = require('./middlewares/urlValidation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-// const { allowedCors } = require('./middlewares/cors');
+const { allowedCors } = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -20,6 +20,28 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.disable('x-powered-by');
+
+app.use((req, res, next) => {
+  const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
+  // проверяем, что источник запроса есть среди разрешённых
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
+  }
+  const { method } = req;
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+  const requestHeaders = req.headers['access-control-request-headers'];
+  // Если это предварительный запрос, добавляем нужные заголовки
+  if (method === 'OPTIONS') {
+    // разрешаем кросс-доменные запросы любых типов (по умолчанию)
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    // разрешаем кросс-доменные запросы с этими заголовками
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    // завершаем обработку запроса и возвращаем результат клиенту
+    return res.end();
+  }
+  return next();
+});
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
@@ -34,6 +56,18 @@ app.use(requestLogger);
 
 app.get('/test', () => {
   console.log('test');
+});
+
+app.use(requestLogger);
+
+app.get('/test', () => {
+  console.log('test');
+});
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
 });
 
 app.post('/signin', express.json(), celebrate({
@@ -60,6 +94,7 @@ app.use('*', Auth, () => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
 
+app.use(errors());
 app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
 app.use((err, req, res, next) => {
