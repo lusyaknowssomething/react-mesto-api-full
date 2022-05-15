@@ -56,7 +56,7 @@ const App = () => {
   function tokenCheck() {
     const token = localStorage.getItem("token");
     if (!token) return;
-
+    console.log(token);
     auth
       .checkToken(token)
       .then((res) => {

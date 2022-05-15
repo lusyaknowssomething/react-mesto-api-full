@@ -79,10 +79,12 @@ class Api {
   }
 }
 
+const token = localStorage.getItem('token');
+
 const api = new Api( {
   url: 'https://api.lusyaknowssomething.nomoredomains.xyz',
   headers: {
-    credentials: 'include',
+    'Authorization': `Bearer ${token}`,
     "content-type": "application/json"
   }
 });
