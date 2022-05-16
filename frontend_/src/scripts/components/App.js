@@ -56,7 +56,6 @@ const App = () => {
   function tokenCheck() {
     const token = localStorage.getItem("token");
     if (!token) return;
-    console.log(token);
     auth
       .checkToken(token)
       .then((res) => {
@@ -227,18 +226,6 @@ const App = () => {
               cards={cards}
             />
           </ProtectedRoute>
-            {/* <ProtectedRoute
-              path="/cards"
-              component={Main}
-              onEditProfile={handleEditProfileClick}
-              onEditAvatar={handleEditAvatarClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDeleteClick}
-              onDelete={handleDeleteClick}
-              cards={cards}
-            /> */}
             <Route path="/sign-up">
               <Register
                 handleInfoTooltip={handleInfoTooltip}
