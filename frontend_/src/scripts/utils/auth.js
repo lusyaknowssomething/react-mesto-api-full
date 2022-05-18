@@ -1,5 +1,4 @@
 export const BASE_URL = 'https://api.lusyaknowssomething.nomoredomains.xyz';
-//const token = localStorage.getItem("token")
 
 const request = ({url, method = 'POST', token, body}) => {
   const config = {

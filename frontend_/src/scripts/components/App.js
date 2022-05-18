@@ -26,9 +26,8 @@ const App = () => {
     Promise.all([api.getUserData(), api.getCards()])
       .then(([user, cards]) => {
         setCurrentUser(user);
-
         setCards(
-          cards.map((item) => ({
+          cards.data.map((item) => ({
             likes: item.likes,
             name: item.name,
             link: item.link,
@@ -60,7 +59,7 @@ const App = () => {
       .checkToken(token)
       .then((res) => {
         if (!res) return;
-        setEmail(res.data.email);
+        setEmail(res.email);
         setLoggining({
           loggedIn: true
         });
@@ -107,14 +106,16 @@ const App = () => {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
+    const isLiked = card.likes.some((i) => i === currentUser._id);
+    console.log(isLiked);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
+        console.log(newCard);
+        console.log('hello')
         setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
+          state.map((c) => (c._id === card._id ? newCard.card : c))
         );
       })
       .catch((err) => {
@@ -179,7 +180,7 @@ const App = () => {
     api
       .postCard(data)
       .then((res) => {
-        setCards([res, ...cards]);
+        setCards([res.data, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
