@@ -13,10 +13,13 @@ class Api {
 
 
   //получить данные пользователя (GET)
-  getUserData() {
+  getUserData(token) {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
-      headers: this._headers
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        "content-type": "application/json"
+      }
     }).then(this._errorHandler)
   }
 
@@ -30,10 +33,13 @@ class Api {
   }
 
   //получить список всех карточек в виде массива (GET)
-  getCards() {
+  getCards(token) {
     return fetch(`${this._url}/cards`, {
       method: 'GET',
-      headers: this._headers
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        "content-type": "application/json"
+      }
     }).then(this._errorHandler)
   }
 

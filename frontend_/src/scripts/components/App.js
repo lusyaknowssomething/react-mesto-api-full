@@ -22,8 +22,21 @@ const App = () => {
   const [cards, setCards] = React.useState([]);
   const avatarRef = React.useRef();
 
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const [selectedCard, setSelectedCard] = React.useState(null);
+  const [cardForDelete, setCardForDelete] = React.useState(null);
+  const [loggining, setLoggining] = React.useState({ loggedIn: false});
+  const [email, setEmail] = React.useState(null);
+  const token = localStorage.getItem('token');
+
   React.useEffect(() => {
-    Promise.all([api.getUserData(), api.getCards()])
+    if (loggining) {
+      Promise.all([api.getUserData(token), api.getCards(token)])
       .then(([user, cards]) => {
         setCurrentUser(user);
         setCards(
@@ -39,18 +52,8 @@ const App = () => {
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       });
-  }, []);
-
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  const [selectedCard, setSelectedCard] = React.useState(null);
-  const [cardForDelete, setCardForDelete] = React.useState(null);
-  const [loggining, setLoggining] = React.useState({ loggedIn: false});
-  const [email, setEmail] = React.useState(null);
+    }
+  }, [loggining]);
 
   function tokenCheck() {
     const token = localStorage.getItem("token");
@@ -107,13 +110,10 @@ const App = () => {
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i === currentUser._id);
-    console.log(isLiked);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        console.log(newCard);
-        console.log('hello')
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard.card : c))
         );
@@ -197,7 +197,6 @@ const App = () => {
     localStorage.setItem("token", token);
     setLoggining((old) => ({ ...old, loggedIn: true }));
     history.push("/cards");
-    console.log('done!');
   }
 
   const [isSuccsess, setIsSuccsess] = React.useState(null);

@@ -29,8 +29,6 @@ function Login({ handleLogin, handleInfoTooltip, setIsSuccsess }) {
         return;
       }
 
-      console.log(data.token);
-
       handleLogin(data.token, email);
       setState({password: '', email: ''});
     })
