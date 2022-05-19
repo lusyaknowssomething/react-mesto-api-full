@@ -197,6 +197,7 @@ const App = () => {
     localStorage.setItem("token", token);
     setLoggining((old) => ({ ...old, loggedIn: true }));
     history.push("/cards");
+    console.log('done!');
   }
 
   const [isSuccsess, setIsSuccsess] = React.useState(null);

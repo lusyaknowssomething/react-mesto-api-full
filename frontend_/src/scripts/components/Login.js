@@ -29,14 +29,16 @@ function Login({ handleLogin, handleInfoTooltip, setIsSuccsess }) {
         return;
       }
 
+      console.log(data.token);
+
       handleLogin(data.token, email);
       setState({password: '', email: ''});
     })
     .catch((err) => {
       handleInfoTooltip(true, false);
       setIsSuccsess(false);
-      console.log(err)});
-
+      console.log(err)
+    });
   }
 
   return (
